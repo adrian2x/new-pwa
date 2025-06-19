@@ -1,10 +1,3 @@
-:root {
-  --bg-color: #fff;
-  --font-color: #222;
-  --font-family-sans: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-  --font-family-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
-}
-
 /* Dark color scheme support */
 @media (prefers-color-scheme: dark) {
   :root {
@@ -46,37 +39,7 @@
   background: var(--bg-color);
 }
 
-html {
-  /* Use system fonts */
-  font-family: var(--font-family-sans);
-  /* Fix line height */
-  font-size: 100%;
-  line-height: 1.15;
-  height: 100%;
-  /* Prevent iOS font size adjustments */
-  -webkit-text-size-adjust: 100%;
-}
 
-/* Fix box model */
-*,
-::before,
-::after {
-  box-sizing: border-box;
-}
-
-body {
-  font-weight: 400;
-  background-color: var(--bg-color);
-  color: var(--font-color);
-  margin: 0;
-  /* Prevent push to refresh from reloading the page */
-  overscroll-behavior-y: contain;
-}
-
-a {
-  cursor: pointer;
-  text-decoration: none;
-}
 
 b,
 strong {
@@ -156,6 +119,7 @@ button,
 [type='submit'] {
   /* Fix the appearance to apply styles */
   -webkit-appearance: button;
+  cursor: pointer;
 }
 
 legend {

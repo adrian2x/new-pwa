@@ -12,7 +12,8 @@ The goal of the project is to provide the minimum boilerplate needed for PWA fea
 2. Set the `title`, `description`, and `theme-color` attributes.
 3. Edit the `app.webmanifest` file.
 4. Replace the default icons.
-5. Add functionality.
+5. Update the default styles (`index.html` and `styles.css`)
+6. Add functionality.
 
 ### Contributing
 
