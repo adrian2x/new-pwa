@@ -2,6 +2,9 @@
   "name": "My PWA",
   "short_name": "PWA",
   "id": "my-pwa.com",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "description": "A sample Progressive Web App (PWA) for demonstration purposes.",
   "icons": [
     {
       "src": "icons/icon-192.png",
@@ -17,8 +20,6 @@
   "start_url": "./",
   "display": "standalone",
   "prefer_related_applications": false,
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
   "scope": "./",
   "lang": "en-US",
   "orientation": "portrait",
@@ -28,7 +29,6 @@
     "minimal-ui",
     "fullscreen"
   ],
-  "description": "A sample Progressive Web App (PWA) for demonstration purposes.",
   "screenshots": [],
   "categories": [
     "utilities",
