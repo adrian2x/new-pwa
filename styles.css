@@ -1,0 +1,198 @@
+:root {
+  --bg-color: #fff;
+  --font-color: #222;
+  --font-family-sans: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-family-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+/* Dark color scheme support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: transparent;
+    --font-color: inherit;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    font-weight: 350;
+  }
+
+  /* Reduce image brightness */
+  img {
+    filter: brightness(0.8) contrast(1.2);
+  }
+}
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+  /* scrollbar-color: var(--colorGrey) var(--bg-color); */
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  /* background: var(--color-mediumGrey); */
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+html {
+  /* Use system fonts */
+  font-family: var(--font-family-sans);
+  /* Fix line height */
+  font-size: 100%;
+  line-height: 1.15;
+  height: 100%;
+  /* Prevent iOS font size adjustments */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Fix box model */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-weight: 400;
+  background-color: var(--bg-color);
+  color: var(--font-color);
+  margin: 0;
+  /* Prevent push to refresh from reloading the page */
+  overscroll-behavior-y: contain;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+b,
+strong {
+  /* Fix font weight in Chrome and Safari */
+  font-weight: bolder;
+}
+
+code,
+kbd,
+samp,
+pre {
+  /* Fix default fonts */
+  font-family: var(--font-family-mono);
+  font-size: 1em;
+}
+
+/* Fix text decorations */
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+/* Fix images width */
+img,
+picture,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+iframe {
+  border: 0;
+}
+
+/* Fix small font sizes */
+small {
+  font-size: 80%;
+}
+
+/* Fix elements line height */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+table {
+  /* Fix border color inheritance */
+  border-color: currentColor;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  /* Fix the font styles and margin */
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  /* Fix the appearance to apply styles */
+  -webkit-appearance: button;
+}
+
+legend {
+  /* Fix the padding */
+  padding: 0;
+}
+
+/* Fix vertical alignment in Chrome, Firefox */
+progress {
+  vertical-align: baseline;
+}
+
+/* Fix increment and decrement buttons in Safari. */
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/* Fix appearance and outline. */
+[type='search'] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+/* Fix inner padding. */
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* Fix upload button appearance */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+/* Fix display mode in Chrome, Safari */
+summary {
+  cursor: pointer;
+  display: list-item;
+}
