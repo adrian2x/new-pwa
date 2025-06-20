@@ -1,7 +1,7 @@
 /* Dark color scheme support */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: transparent;
+    --bg-color: #121212;
     --font-color: inherit;
   }
 

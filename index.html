@@ -11,7 +11,6 @@
   <link rel="manifest" href="app.webmanifest">
   <link rel="apple-touch-icon" href="icons/apple-180.png">
   <link rel="apple-touch-startup-image" href="images/splash.png">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <!-- inline CSS for app shell -->
   <style type="text/css">
     :root {
@@ -70,6 +69,9 @@
       backdrop-filter: blur(8px);
       border-bottom: 1px solid #ccc;
       background-color: hsla(0, 0%, 100%, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
       & button {
         margin: 0 10px;
@@ -122,41 +124,6 @@
     .flex {
       display: flex;
       align-items: center;
-
-      &.between {
-        justify-content: space-between;
-      }
-    }
-
-    .dropdown {
-      position: relative;
-      z-index: 1002;
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: var(--bg-color);
-      border-radius: 5px;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-      opacity: 0;
-      overflow: hidden;
-      padding: 10px;
-      pointer-events: none;
-      transform: translateY(-10px);
-      transition: all 0.2s ease;
-      max-height: 0;
-      min-width: 160px;
-      display: flex;
-      flex-direction: column;
-
-      &.show {
-        opacity: 1;
-        max-height: 500px;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
     }
   </style>
   <link rel="stylesheet" href="styles.css">
@@ -164,25 +131,12 @@
 </head>
 
 <body>
-  <header class="flex between">
+  <header class="header">
     <div class="flex">
       <button onclick="showDrawer()" style="padding-top: 0" aria-label="Menu">
         <span style="font-size: 1.7em">☰</span>
       </button>
       <strong class="brand"> My PWA</strong>
-    </div>
-
-    <div class="flex">
-      <div class="dropdown">
-        <button id="settingsBtn" data-dropdown="settings">Menu</button>
-        <div class="dropdown-menu" id="settings" hidden>
-          <ul>
-            <li><a href="#">Log In</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">About</a></li>
-          </ul>
-        </div>
-      </div>
     </div>
   </header>
 
@@ -222,16 +176,6 @@
       document.getElementById('drawer').classList.toggle('active')
       document.getElementById('overlay').classList.toggle('active')
     }
-
-    // Toggle functionality for dropdown menus
-    document.querySelectorAll('[data-dropdown]').forEach(button => {
-      button.addEventListener('click', function (event) {
-        event.stopPropagation()
-        const dropdownId = this.getAttribute('data-dropdown')
-        const dropdown = document.getElementById(dropdownId)
-        dropdown.classList.toggle('show')
-      })
-    });
   </script>
 </body>
 
