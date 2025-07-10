@@ -15,8 +15,14 @@
   <style type="text/css">
     :root {
       --bg-color: #fff;
+      --bg-glass: rgba(255, 255, 255, 0.2);
+      --bg-glass-surface: rgba(255, 255, 255, 0.75);
+      --border-glass: 1px solid rgba(255, 255, 255, 1);
+      --box-shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.1),
+        inset 0 4px 20px rgba(255, 255, 255, 0.2);
       --font-color: #222;
       --theme-color: royalblue;
+      --icon-color: inherit;
       --font-family-sans: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
       --font-family-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
     }
@@ -25,7 +31,7 @@
       /* Use system fonts */
       font-family: var(--font-family-sans);
       /* Fix line height */
-      font-size: 100%;
+      font-size: 17px;
       line-height: 1.15;
       height: 100%;
       /* Prevent iOS font size adjustments */
@@ -40,7 +46,7 @@
     }
 
     body {
-      font-weight: 400;
+      font-weight: 500;
       background-color: var(--bg-color);
       color: var(--font-color);
       margin: 0;
@@ -53,6 +59,7 @@
     a {
       cursor: pointer;
       text-decoration: none;
+      color: inherit;
     }
 
     ul {
@@ -65,40 +72,63 @@
       }
     }
 
+    .brand {
+      font-weight: 900;
+      color: white;
+      font-size: 2rem;
+    }
+
     header {
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #ccc;
-      background-color: hsla(0, 0%, 100%, 0.6);
+      position: fixed;
+      top: 0;
       display: flex;
+      width: 100%;
       align-items: center;
       justify-content: space-between;
+      padding: 10px;
+      z-index: 0;
+
+      /* Add a scroll edge effect */
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: transparent;
+        mask: linear-gradient(to top, transparent, black 20%);
+        backdrop-filter: blur(4px);
+      }
 
       & button {
-        margin: 0 10px;
-        padding: 5px;
-        min-height: 48px;
-        min-width: 48px;
-        background-color: transparent;
         border: 0;
+        padding: 0.375rem;
+        margin: 0 0.5rem;
+        border-radius: 1.5rem;
       }
     }
 
     /* Drawer Styles */
     .drawer {
       position: fixed;
-      top: 0;
-      left: -259px;
+      top: 0.5em;
       width: 250px;
+      left: -259px;
+      /* matching width */
       height: 100%;
-      padding: 60px 20px;
-      background-color: var(--bg-color);
-      color: var(--font-color);
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
+      height: calc(100% - 1em);
+      padding: 0.5rem;
+      /* color: var(--font-color); */
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
       transition: left 0.2s ease-in-out;
       z-index: 1000;
+      border-radius: 20px;
 
       &.active {
-        left: 0;
+        left: 0.5em;
+      }
+
+      ul {
+        padding: 20px;
       }
     }
 
@@ -109,7 +139,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.4);
+      /* background: rgba(0,0,0,0.1); */
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.2s ease;
@@ -121,26 +151,139 @@
       }
     }
 
-    .flex {
-      display: flex;
-      align-items: center;
+    .glass {
+      position: relative;
+      background-color: var(--bg-glass);
+      backdrop-filter: blur(2px) saturate(180%);
+      border: var(--border-glass);
+      box-shadow: var(--box-shadow-glass);
+      transition: transform 100ms ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        backdrop-filter: blur(3px);
+        filter: blur(1px) drop-shadow(10px 4px 6px gray) brightness(115%);
+        z-index: -1;
+        box-shadow: inset 2px 2px 1px 0 rgb(255 255 255 / 50%), inset -1px -1px 1px 1px rgb(255 255 255 / 50%);
+        background: var(--bg-glass);
+        opacity: 0.6;
+        pointer-events: none;
+      }
+    }
+
+    .glass-surface {
+      border: var(--border-glass);
+      background-color: var(--bg-glass-surface);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Dark color scheme support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #000;
+        --font-color: inherit;
+        --bg-glass: rgba(255, 255, 255, 0.05);
+        --bg-glass-surface: rgba(0, 0, 0, 0.4);
+        --border-glass: 1px solid rgba(255, 255, 255, 0.2);
+        --box-shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.1),
+          inset 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      html {
+        color-scheme: dark;
+      }
+
+      /* Reduce image brightness */
+      img {
+        filter: brightness(0.8) contrast(1.2);
+      }
+
+      .glass::after {
+        filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(100%);
+        box-shadow: inset 2px 2px 1px 0 rgb(255 255 255 / 20%), inset -1px -1px 1px 1px rgb(255 255 255 / 20%);
+      }
     }
   </style>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/atomic-theme@1.1.0/css/layout.css" />
   <script src="app.js" defer></script>
 </head>
 
 <body>
   <header class="header">
-    <div class="flex">
-      <button onclick="showDrawer()" style="padding-top: 0" aria-label="Menu">
-        <span style="font-size: 1.7em">☰</span>
+    <nav class="flex w-100">
+      <button class="glass" onclick="showDrawer()" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-menu-3">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M10 6h10" />
+          <path d="M4 12h16" />
+          <path d="M7 12h13" />
+          <path d="M4 18h10" />
+        </svg>
       </button>
-      <strong class="brand"> My PWA</strong>
-    </div>
+      <strong class="brand flex-1 ml3" style="font-weight:800">Brand</strong>
+
+      <button class="glass" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+          <path d="M21 21l-6 -6" />
+        </svg>
+      </button>
+
+      <button class="glass" onclick="navigator.share()" aria-label="Share">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-share-2">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M8 9h-1a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-8a2 2 0 0 0 -2 -2h-1" />
+          <path d="M12 14v-11" />
+          <path d="M9 6l3 -3l3 3" />
+        </svg>
+      </button>
+
+      <button class="glass py2 px3">
+        Select
+      </button>
+      <button class="glass" onclick="showDrawer()" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-dots">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+      </button>
+    </nav>
   </header>
 
-  <div class="drawer" id="drawer" onclick="showDrawer()">
+  <div class="drawer glass-surface" id="drawer" onclick="showDrawer()">
+    <div class="flex justify-end">
+      <button class="btn-icon glass p1 radius-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M15 6l-6 6l6 6" />
+        </svg>
+      </button>
+    </div>
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">Sign up</a></li>
@@ -152,17 +295,85 @@
   <div class="overlay" id="overlay" onclick="showDrawer()"></div>
 
   <main id="content">
-    <div>
-      <div>
-        <center><img src="/icons/icon-512.png" alt="My PWA"></center>
-      </div>
-
-      <div>
-        <center>
-          <h1>My PWA</h1>
-        </center>
-      </div>
+    <div class="hero"
+      style='background: url("https://images.unsplash.com/photo-1618274044193-b4d669028a99?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); background-size:cover; width: 100%; height: 600px; margin-top:-4rem'>
     </div>
+    <article class="container">
+      <p>
+      <h1>Mount Fuji</h1>
+      </p>
+      <p>
+        Mount Fuji[a] (富士山・富士の山, Fujisan, Fuji no Yama[b]) is an active stratovolcano located on the Japanese island of
+        Honshu, with a summit elevation of 3,776.24 m (12,389 ft 3 in). It is the highest mountain in Japan, the
+        second-highest volcano on any Asian island (after Mount Kerinci on the Indonesian island of Sumatra), and
+        seventh-highest peak of an island on Earth.[1]
+      </p>
+      <p>
+        Mount Fuji last erupted from 1707 to 1708.[7][8] It is located about 100 km (62 mi) southwest of Tokyo, from
+        where it is visible on clear days. Its exceptionally symmetrical cone, which is covered in snow for about five
+        months of the year, is a Japanese cultural icon and is frequently depicted in art and photography, as well as
+        visited by sightseers, hikers and mountain climbers.[9]
+      </p>
+      <p>
+        Mount Fuji is one of Japan's "Three Holy Mountains" (三霊山, Sanreizan) along with Mount Tate and Mount Haku. It is
+        a Special Place of Scenic Beauty and one of Japan's Historic Sites.[10] It was added to the World Heritage List
+        as a Cultural Site on June 22, 2013.[10] According to UNESCO, Mount Fuji has "inspired artists and poets and
+        been the object of pilgrimage for centuries". UNESCO recognizes 25 sites of cultural interest within the Mount
+        Fuji locality. These 25 locations include Mount Fuji and the Shinto shrine, Fujisan Hongū Sengen Taisha.[11]
+      </p>
+      <p>
+      <h2>History</h2>
+      </p>
+      <p>
+        Mount Fuji is widely regarded to have an attractive volcanic cone. It has been a frequent subject of Japanese
+        art, especially after 1600, when Edo (now Tokyo) became the capital and people saw the mountain while traveling
+        on the Tōkaidō road. According to the historian H. Byron Earhart, "in medieval times it eventually came to be
+        seen by Japanese as the "number one" mountain of the known world of the three countries of India, China, and
+        Japan".[19] The mountain is mentioned in Japanese literature throughout the ages and is the subject of many
+        poems.[20]
+      </p>
+      <p>
+        The summit has been thought of as sacred since ancient times, and was therefore forbidden to women. It was not
+        until 1872 that the Japanese government issued an edict (May 4, 1872, Grand Council of State Edict 98) stating,
+        "Any remaining practices of female exclusion on shrine and temple lands shall be immediately abolished, and
+        mountain climbing for worship, etc., shall be permitted."[21] Tatsu Takayama, a Japanese woman, became the first
+        woman on record to summit Mount Fuji in the fall of 1832.[22][23][24]
+      </p>
+      <p>
+        Ancient samurai used the base of the mountain as a remote training area, near the present-day town of Gotemba.
+        The shōgun Minamoto no Yoritomo held yabusame archery contests in the area in the early Kamakura period.
+      </p>
+      <p>
+        The first ascent by a foreigner was by Sir Rutherford Alcock in September 1860, who ascended the mountain in 8
+        hours and descended in 3 hours.[25]: 427  Alcock's brief narrative in The Capital of the Tycoon was the first
+        widely disseminated description of the mountain in the West.[25]: 421–27  Lady Fanny Parkes, the wife of British
+        ambassador Sir Harry Parkes, was the first non-Japanese woman to ascend Mount Fuji, in 1867.[26] Photographer
+        Felix Beato climbed Mount Fuji two years later.[27]
+      </p>
+      <p>
+        On March 5, 1966, BOAC Flight 911, a Boeing 707, broke up in flight and crashed near the Mount Fuji Gotemba New
+        fifth station, shortly after departure from Tokyo International Airport. All 113 passengers and 11 crew members
+        died in the disaster, which was attributed to the extreme clear-air turbulence caused by lee waves downwind of
+        the mountain. There is a memorial for the crash victims a short distance down from the Gotemba New Fifth
+        Station.[28]
+      </p>
+      <p>
+        Today, Mount Fuji is an international destination for tourism and mountain climbing.[29][30] In the early 20th
+        century, populist educator Frederick Starr's Chautauqua lectures about his several ascents of Mount Fuji— in
+        1913, 1919, and 1923—were widely known in America.[31] A well-known Japanese saying suggests that a wise person
+        will climb Mt. Fuji once in their lifetime, but only a fool would climb it twice.[32][33] It remains a popular
+        symbol in Japanese culture, including making numerous movie appearances,[34] inspiring the Infiniti logo,[35]
+        and even appearing in medicine with the Mount Fuji sign.[36][37]
+      </p>
+      <p>
+        In September 2004, the staffed weather station at the summit was closed after 72 years in operation. Observers
+        monitored radar sweeps that detected typhoons and heavy rains. The station, which was the highest in Japan at
+        3,780 m (12,402 ft), was replaced by a fully automated meteorological system.[38]
+      </p>
+      <p>
+        Mount Fuji was added to the World Heritage List as a Cultural Site on June 22, 2013.[10]
+      </p>
+    </article>
   </main>
 
   <script>
