@@ -202,7 +202,7 @@
         </svg>
       </button>
 
-      <button class="glass" onclick="navigator.share()" aria-label="Share">
+      <button class="glass" onclick="navigator.share({title: 'PWA Demo', text: 'Check out this PWA demo!', url: location.href})" aria-label="Share">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
           class="icon icon-tabler icons-tabler-outline icon-tabler-share-2">
