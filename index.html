@@ -15,27 +15,24 @@
   <style type="text/css">
     :root {
       --bg-color: #fff;
-      --bg-glass: rgba(255, 255, 255, 0.2);
-      --bg-glass-surface: rgba(255, 255, 255, 0.75);
-      --border-glass: 1px solid rgba(255, 255, 255, 1);
-      --box-shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.1),
-        inset 0 4px 20px rgba(255, 255, 255, 0.2);
       --font-color: #222;
       --theme-color: royalblue;
       --icon-color: inherit;
-      --font-family-sans: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-      --font-family-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      --font-sans: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+      --font-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
     }
 
     html {
       /* Use system fonts */
-      font-family: var(--font-family-sans);
+      font-family: var(--font-sans);
       /* Fix line height */
       font-size: 17px;
       line-height: 1.15;
       height: 100%;
       /* Prevent iOS font size adjustments */
       -webkit-text-size-adjust: 100%;
+      /* Prevent webkit tap highlights */
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* Fix box model */
@@ -151,43 +148,6 @@
       }
     }
 
-    .glass {
-      position: relative;
-      background-color: var(--bg-glass);
-      backdrop-filter: blur(2px) saturate(180%);
-      border: var(--border-glass);
-      box-shadow: var(--box-shadow-glass);
-      transition: transform 100ms ease;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-
-      &:active {
-        transform: scale(0.95);
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        backdrop-filter: blur(3px);
-        filter: blur(1px) drop-shadow(10px 4px 6px gray) brightness(115%);
-        z-index: -1;
-        box-shadow: inset 2px 2px 1px 0 rgb(255 255 255 / 50%), inset -1px -1px 1px 1px rgb(255 255 255 / 50%);
-        background: var(--bg-glass);
-        opacity: 0.6;
-        pointer-events: none;
-      }
-    }
-
-    .glass-surface {
-      border: var(--border-glass);
-      background-color: var(--bg-glass-surface);
-      backdrop-filter: blur(8px);
-    }
-
     .prose {
       line-height: 1.5;
     }
@@ -197,11 +157,6 @@
       :root {
         --bg-color: #000;
         --font-color: inherit;
-        --bg-glass: rgba(255, 255, 255, 0.05);
-        --bg-glass-surface: rgba(0, 0, 0, 0.4);
-        --border-glass: 1px solid rgba(255, 255, 255, 0.2);
-        --box-shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.1),
-          inset 0 4px 20px rgba(0, 0, 0, 0.2);
       }
 
       html {
@@ -212,14 +167,10 @@
       img {
         filter: brightness(0.8) contrast(1.2);
       }
-
-      .glass::after {
-        filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(100%);
-        box-shadow: inset 2px 2px 1px 0 rgb(255 255 255 / 20%), inset -1px -1px 1px 1px rgb(255 255 255 / 20%);
-      }
     }
   </style>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="liquid-glass.css">
   <link rel="stylesheet" href="https://unpkg.com/atomic-theme@1.1.0/css/layout.css" />
   <script src="app.js" defer></script>
 </head>
@@ -238,9 +189,10 @@
           <path d="M4 18h10" />
         </svg>
       </button>
+
       <strong class="brand flex-1 ml3" style="font-weight:800">Brand</strong>
 
-      <button class="glass" aria-label="Search">
+      <button class="glass sm-hide" aria-label="Search">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
           class="icon icon-tabler icons-tabler-outline icon-tabler-search">
@@ -261,9 +213,10 @@
         </svg>
       </button>
 
-      <button class="glass py2 px3">
+      <button class="glass py2 px3 sm-hide">
         Select
       </button>
+
       <button class="glass" onclick="showDrawer()" aria-label="Menu">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

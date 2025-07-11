@@ -29,7 +29,7 @@ kbd,
 samp,
 pre {
   /* Fix default fonts */
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   font-size: 1em;
 }
 
@@ -140,5 +140,6 @@ summary {
 
 /* Fix display mode */
 svg {
+  color: var(--font-color);
   display: block;
 }
